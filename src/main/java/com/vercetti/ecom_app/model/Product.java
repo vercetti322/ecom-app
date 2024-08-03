@@ -6,11 +6,9 @@ import java.util.Date;
 
 @Entity
 public class Product {
-    @Id
-    private int id;
 
-    @Column(nullable = false)
-    private String name;
+    @EmbeddedId
+    private ProductKey productKey;
 
     @Column(nullable = false)
     private String brand;
@@ -31,35 +29,34 @@ public class Product {
     @Column(nullable = false)
     private boolean available;
 
+    @Column(nullable = false)
+    private float rating;
+
     // all args Constructor
-    public Product(String name, String description, String brand, BigDecimal price, Date releaseDate, int quantity, Boolean available) {
-        this.name = name;
+    public Product(ProductKey productKey, String description, String brand, BigDecimal price, Date releaseDate, int quantity, Boolean available, float rating) {
+        this.productKey = productKey;
         this.description = description;
         this.brand = brand;
         this.price = price;
         this.releaseDate = releaseDate;
         this.quantity = quantity;
         this.available = available;
+        this.rating = rating;
+    }
+
+    // update constructor
+    public void updateFrom(Product newProduct) {
+        this.description = newProduct.getDescription();
+        this.brand = newProduct.getBrand();
+        this.price = newProduct.getPrice();
+        this.releaseDate = newProduct.getReleaseDate();
+        this.quantity = newProduct.getQuantity();
+        this.available = newProduct.isAvailable();
+        this.rating = newProduct.getRating();
     }
 
     // no args constructor
     public Product() { }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;
@@ -107,5 +104,21 @@ public class Product {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public ProductKey getProductKey() {
+        return productKey;
+    }
+
+    public void setProductKey(ProductKey productKey) {
+        this.productKey = productKey;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }
