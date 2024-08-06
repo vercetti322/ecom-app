@@ -32,7 +32,7 @@ public class ProductService {
     public List<Product> getProductPreview() {
         List<ProductKey> allKeys = repository.getAllProductKeys();
         Collections.shuffle(allKeys);
-        List<ProductKey> reqKeys =  allKeys.stream().limit(9).toList();
+        List<ProductKey> reqKeys =  allKeys.stream().limit(12).toList();
 
         List<Product> reqProducts = new java.util.ArrayList<>(List.of());
         for (ProductKey key: reqKeys) {

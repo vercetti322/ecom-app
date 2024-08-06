@@ -22,11 +22,15 @@ public class ProductController {
     }
 
     // get specific product
-    @GetMapping("/products/{category}/{name}/{image}")
-    public Product getProductByKey(@PathVariable String category, @PathVariable String name, @PathVariable String image) {
-        ProductKey Key = new ProductKey(image, name, category);
-        return service.getProductByKey(Key);
+    @GetMapping("/products/{category}/{name}")
+    public Product getProductByKey(
+            @PathVariable String category,
+            @PathVariable String name,
+            @RequestParam String image) {
+        ProductKey key = new ProductKey(image, name, category);
+        return service.getProductByKey(key);
     }
+
 
     // get 9 random products for home preview
     @GetMapping("/products/preview")
